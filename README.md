@@ -1,4 +1,4 @@
-# Sora Go
+# Sora App SDK for Go
 
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/shiguredo/sora-go.svg)](https://github.com/shiguredo/sora-go)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
