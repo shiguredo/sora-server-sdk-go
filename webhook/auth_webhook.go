@@ -14,9 +14,11 @@ type AuthWebhookRequest struct {
 	Role         string `json:"role"`
 	ChannelID    string `json:"channel_id"`
 	ClientID     string `json:"client_id"`
+	BundleID     string `json:"bundle_id"`
 	ConnectionID string `json:"connection_id"`
 
-	Metadata json.RawMessage `json:"metadata"`
+	AuthMetadata json.RawMessage `json:"auth_metadata"`
+	Metadata     json.RawMessage `json:"metadata"`
 
 	DataChannelSignaling      bool `json:"data_channel_signaling"`
 	IgnoreDisconnectWebSocket bool `json:"ignore_disconnect_websocket"`
@@ -28,8 +30,8 @@ type AuthWebhookRequest struct {
 	ChannelSendonlyConnections uint `json:"channel_sendonly_connections"`
 	ChannelRecvonlyConnections uint `json:"channel_recvonly_connections"`
 
-	Audio AudioParams `json:"audio"`
-	Video VideoParams `json:"video"`
+	Audio json.RawMessage `json:"audio"`
+	Video json.RawMessage `json:"video"`
 
 	E2EE bool `json:"e2ee"`
 
@@ -63,12 +65,25 @@ type SuccessResponse struct {
 
 	Multistream bool `json:"multistream,omitempty"`
 	Simulcast   bool `json:"simulcast,omitempty"`
-	Spotlight   bool `json:"spotlight,omitempty"`
+	// simulcast_rid
+	Spotlight bool `json:"spotlight,omitempty"`
 
+	Metadata      json.RawMessage `json:"metadata,omitempty"`
 	EventMetadata json.RawMessage `json:"event_metadata,omitempty"`
 
-	Audio interface{} `json:"audio,omitempty"`
-	Video interface{} `json:"video,omitempty"`
+	DataChannelSignaling      bool `json:"data_channel_signaling,omitempty"`
+	IgnoreDisconnectWebSocket bool `json:"ignore_disconnect_websocket,omitempty"`
+
+	DataChannels []DataChannelParams `json:"data_channels,omitempty"`
+
+	Audio json.RawMessage `json:"audio,omitempty"`
+	Video json.RawMessage `json:"video,omitempty"`
+
+	// TODO(v): ipv4_address
+	// TODO(v): ipv6_address
+
+	// TODO(v): turn_fqdn
+	// TODO(v): turn_tls_fqdn
 
 	TurnTCPOnly bool `json:"turn_tcp_only,omitempty"`
 	TurnTLSOnly bool `json:"turn_tls_only,omitempty"`

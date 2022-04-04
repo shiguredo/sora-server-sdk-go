@@ -13,6 +13,15 @@ Please read https://github.com/shiguredo/oss/blob/master/README.en.md before use
 
 利用前に https://github.com/shiguredo/oss をお読みください。
 
+
+## 利用方法
+
+v2022.2 は Sora のバージョン
+
+```
+go get -u github.com/shiguredo/sora-app-sdk-go/v2022.2
+```
+
 ## ライセンス
 
 Apache License 2.0
