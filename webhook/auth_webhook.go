@@ -1,4 +1,4 @@
-package sora
+package webhook
 
 import "encoding/json"
 
@@ -18,18 +18,47 @@ type AuthWebhookRequest struct {
 
 	Metadata json.RawMessage `json:"metadata"`
 
+	DataChannelSignaling      bool `json:"data_channel_signaling"`
+	IgnoreDisconnectWebSocket bool `json:"ignore_disconnect_websocket"`
+
+	DataChannels []DataChannelParams `json:"data_channels"`
+
 	ChannelConnections         uint `json:"channel_connetions"`
 	ChannelSendrecvConnections uint `json:"channel_sendrecv_connections"`
 	ChannelSendonlyConnections uint `json:"channel_sendonly_connections"`
 	ChannelRecvonlyConnections uint `json:"channel_recvonly_connections"`
 
-	Audio interface{} `json:"audio"`
-	Video interface{} `json:"video"`
+	Audio AudioParams `json:"audio"`
+	Video VideoParams `json:"video"`
 
+	E2EE bool `json:"e2ee"`
+
+	SoraClient SoraClient `json:"sora_client"`
+
+	// undoc
 	XForwardedFor string `json:"x_forwarded_for"`
 }
 
-type AcceptResponse struct {
+type DataChannelParams struct {
+	Label             string `json:"label"`
+	Direction         string `json:"direction"`
+	Protocol          string `json:"protocol"`
+	Ordered           bool   `json:"ordered"`
+	Compress          bool   `json:"compress"`
+	MaxPacketLifeTime int    `json:"max_packet_life_time"`
+	MaxRetransmits    int    `json:"max_retransmits"`
+}
+
+type SoraClient struct {
+	Environment string `json:"environment"`
+	Raw         string `json:"raw"`
+	Type        string `json:"type"`
+	Version     string `json:"version"`
+	CommitShort string `json:"commit_short"`
+	Libwebrtc   string `json:"libwebrtc"`
+}
+
+type SuccessResponse struct {
 	Allowed bool `json:"allowed"`
 
 	Multistream bool `json:"multistream,omitempty"`
@@ -45,7 +74,7 @@ type AcceptResponse struct {
 	TurnTLSOnly bool `json:"turn_tls_only,omitempty"`
 }
 
-type RejectResponse struct {
+type ErrorResponse struct {
 	Allowed bool   `json:"allowed"`
 	Reason  string `json:"reason"`
 }

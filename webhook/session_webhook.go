@@ -1,4 +1,4 @@
-package sora
+package webhook
 
 import (
 	"encoding/json"

@@ -1,4 +1,4 @@
-package sora
+package webhook
 
 type AudioParams struct {
 	BitRate   int    `json:"bit_rate,omitempty"`
