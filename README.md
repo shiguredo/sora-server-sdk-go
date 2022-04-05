@@ -1,6 +1,6 @@
 # Sora App SDK for Go
 
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/shiguredo/sora-go.svg)](https://github.com/shiguredo/sora-go)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/shiguredo/sora-app-sdk-go.svg)](https://github.com/shiguredo/sora-go)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## About Shiguredo's open source software
@@ -13,10 +13,22 @@ Please read https://github.com/shiguredo/oss/blob/master/README.en.md before use
 
 利用前に https://github.com/shiguredo/oss をお読みください。
 
+## 概要
+
+**現在お試し開発中です**
+
+Sora と連携するアプリケーションを開発する際にほんの少しだけ楽ができるかも知れないアプリ用 SDK です。
+
+### 対応内容
+
+- [ ] AuthWebhook
+- [ ] SessionWebhook
+- [ ] EventWebhook
+- [ ] API 
 
 ## 利用方法
 
-v2022.2 は Sora のバージョン
+v2022.2 は対応する Sora のバージョンを表しています。
 
 ```
 go get -u github.com/shiguredo/sora-app-sdk-go/v2022.2
