@@ -79,11 +79,11 @@ type AuthSuccessResponse struct {
 	Audio json.RawMessage `json:"audio,omitempty"`
 	Video json.RawMessage `json:"video,omitempty"`
 
-	// TODO(v): ipv4_address
-	// TODO(v): ipv6_address
+	IPv4Address string `json:"ipv4_address,omitempty"`
+	IPv6Address string `json:"ipv6_address,omitempty"`
 
-	// TODO(v): turn_fqdn
-	// TODO(v): turn_tls_fqdn
+	TurnFqdn    string `json:"turn_fqdn,omitempty"`
+	TurnTlsFqdn string `json:"turn_tls_fqdn,omitempty"`
 
 	TurnTCPOnly bool `json:"turn_tcp_only,omitempty"`
 	TurnTLSOnly bool `json:"turn_tls_only,omitempty"`
