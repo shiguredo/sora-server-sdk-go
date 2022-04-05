@@ -2,7 +2,7 @@ package webhook
 
 import "encoding/json"
 
-type AuthWebhookRequest struct {
+type AuthRequest struct {
 	Version  string `json:"version"`
 	Label    string `json:"label"`
 	NodeName string `json:"node_name"`
@@ -60,7 +60,7 @@ type SoraClient struct {
 	Libwebrtc   string `json:"libwebrtc"`
 }
 
-type SuccessResponse struct {
+type AuthSuccessResponse struct {
 	Allowed bool `json:"allowed"`
 
 	Multistream bool `json:"multistream,omitempty"`
@@ -89,7 +89,7 @@ type SuccessResponse struct {
 	TurnTLSOnly bool `json:"turn_tls_only,omitempty"`
 }
 
-type ErrorResponse struct {
+type AuthErrorResponse struct {
 	Allowed bool   `json:"allowed"`
 	Reason  string `json:"reason"`
 }

@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type SessionWebhookRequest struct {
+type SessionRequest struct {
 	Timestamp time.Time `json:"timestamp"`
 
 	Type     string `json:"type"`
@@ -14,8 +14,8 @@ type SessionWebhookRequest struct {
 	NodeName string `json:"node_name"`
 }
 
-type SessionCreatedWebhookRequest struct {
-	SessionWebhookRequest
+type SessionCreatedRequest struct {
+	SessionRequest
 
 	Multistream bool `json:"multistream"`
 
@@ -37,8 +37,8 @@ type SessionConnection struct {
 	Video interface{} `json:"video"`
 }
 
-type SessionDestroyedWebhookRequest struct {
-	SessionWebhookRequest
+type SessionDestroyedRequest struct {
+	SessionRequest
 	Multistream        bool                `json:"multistream"`
 	Spotlight          bool                `json:"spotlight"`
 	ChannelID          string              `json:"channel_id"`
@@ -53,6 +53,6 @@ type SessionDestroyedWebhookRequest struct {
 	SessionMetadata    json.RawMessage     `json:"session_metadata"`
 }
 
-type SessionVanishedWebhookRequest struct {
-	SessionWebhookRequest
+type SessionVanishedRequest struct {
+	SessionRequest
 }

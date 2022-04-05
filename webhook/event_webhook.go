@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type EventWebhookRequest struct {
+type EventRequest struct {
 	Type string `json:"type"`
 
 	ID string `json:"id"`
