@@ -89,6 +89,14 @@ type AuthSuccessResponse struct {
 	TurnTLSOnly bool `json:"turn_tls_only,omitempty"`
 }
 
+type SimulcastEncodings struct {
+	Rid                   string  `json:"rid"`
+	Active                bool    `json:"active,omitempty"`
+	ScaleResolutionByDown float64 `json:"scaleResolutionDownBy,omitempty"`
+	MaxBitrate            float64 `json:"maxBitrate,omitempty"`
+	MaxFramerate          float64 `json:"maxFramerate,omitempty"`
+}
+
 type AuthErrorResponse struct {
 	Allowed bool   `json:"allowed"`
 	Reason  string `json:"reason"`
