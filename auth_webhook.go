@@ -22,10 +22,10 @@ type AuthWebhookRequest struct {
 	Audio          bool   `json:"audio"`
 	AudioCodecType string `json:"audio_codec_type"`
 	// AudioBitRate は入ってこない場合があるので nil を許容する
-	AudioBitRate   *int   `json:"audio_bit_rate"`
+	AudioBitRate   *int32 `json:"audio_bit_rate"`
 	Video          bool   `json:"video"`
 	VideoCodecType string `json:"video_codec_type"`
-	VideoBitRate   int    `json:"video_bit_rate"`
+	VideoBitRate   int32  `json:"video_bit_rate"`
 
 	DataChannelSignaling      bool                `json:"data_channel_signaling"`
 	IgnoreDisconnectWebSocket bool                `json:"ignore_disconnect_websocket"`
@@ -42,12 +42,14 @@ type AuthWebhookRequest struct {
 
 	E2EE bool `json:"e2ee"`
 
-	ChannelConnections         uint `json:"channel_connetions"`
-	ChannelSendrecvConnections uint `json:"channel_sendrecv_connections"`
-	ChannelSendonlyConnections uint `json:"channel_sendonly_connections"`
-	ChannelRecvonlyConnections uint `json:"channel_recvonly_connections"`
+	ChannelConnections         int64 `json:"channel_connections"`
+	ChannelSendrecvConnections int64 `json:"channel_sendrecv_connections"`
+	ChannelSendonlyConnections int64 `json:"channel_sendonly_connections"`
+	ChannelRecvonlyConnections int64 `json:"channel_recvonly_connections"`
 
 	SoraClient SoraClient `json:"sora_client"`
+
+	AudioStreamingLanguageCode string `json:"audio_streaming_language_code"`
 }
 
 type SoraClient struct {
@@ -111,10 +113,11 @@ type SimulcastEncoding struct {
 	ScaleResolutionDownBy float64 `json:"scaleResolutionDownBy,omitempty"`
 	MaxBitrate            float64 `json:"maxBitrate,omitempty"`
 	MaxFramerate          float64 `json:"maxFramerate,omitempty"`
-	AdaptivePtime         bool    `json:"adaptivePtime"`
+	AdaptivePtime         bool    `json:"adaptivePtime,omitempty"`
+	ScalabilityMode       string  `json:"scalabilityMode,omitempty"`
 }
 
-type AuthWebhookErrorResponse struct {
+type AuthWebhookFailureResponse struct {
 	Allowed bool   `json:"allowed"`
 	Reason  string `json:"reason"`
 }
