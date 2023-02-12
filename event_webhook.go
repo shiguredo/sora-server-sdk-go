@@ -5,22 +5,24 @@ import (
 	"time"
 )
 
+type EventWebhookType string
+
 const (
-	EVENT_TYPE_CONNECTION_CREATED   = "connection.created"
-	EVENT_TYPE_CONNECTION_UPDATED   = "connection.updated"
-	EVENT_TYPE_CONNECTION_DESTROYED = "connection.destroyed"
-	EVENT_TYPE_CONNECTION_FAILED    = "connection.failed"
+	EventWebhookTypeConnectionCreated   EventWebhookType = "connection.destroyed"
+	EventWebhookTypeConnectionUpdated   EventWebhookType = "connection.updated"
+	EventWebhookTypeConnectionDestroyed EventWebhookType = "connection.destroyed"
+	EventWebhookTypeConnectionFailed    EventWebhookType = "connection.failed"
 
-	EVENT_TYPE_RECORDING_STARTED = "recording.started"
-	EVENT_TYPE_RECORDING_REPORT  = "recording.report"
+	EventWebhookTypeRecordingStarted EventWebhookType = "recording.started"
+	EventWebhookTypeRecordingReport  EventWebhookType = "recording.report"
 
-	EVENT_TYPE_ARCHIVE_STARTED         = "archive.started"
-	EVENT_TYPE_ARCHIVE_AVAILABLE       = "archive.available"
-	EVENT_TYPE_SPLIT_ARCHIVE_AVAILABLE = "split-archive.available"
-	EVENT_TYPE_SPLIT_ARCHIVE_END       = "split-archive.end"
+	EventWebhookTypeArchiveStarted        EventWebhookType = "archive.started"
+	EventWebhookTypeArchiveAvailable      EventWebhookType = "archive.available"
+	EventWebhookTypeSplitArchiveAvailable EventWebhookType = "split-archive.available"
+	EventWebhookTypeSplitArchiveEnd       EventWebhookType = "split-archive.end"
 
-	EVENT_TYPE_SPOTLIGHT_FOCUSED   = "spotlight.focused"
-	EVENT_TYPE_SPOTLIGHT_UNFOCUSED = "spotlight.unfocused"
+	EventWebhookTypeSpotlightFocused   EventWebhookType = "spotlight.focused"
+	EventWebhookTypeSpotlightUnfocused EventWebhookType = "spotlight.unfocused"
 )
 
 type EventWebhookRequest struct {
@@ -28,7 +30,7 @@ type EventWebhookRequest struct {
 
 	ID string `json:"id"`
 
-	Type string `json:"type"`
+	Type EventWebhookType `json:"type"`
 
 	Label    string `json:"label"`
 	NodeName string `json:"node_name"`
@@ -54,13 +56,13 @@ type ConnectionCreatedData struct {
 	CreatedTime      int64     `json:"created_time"`
 	CreatedTimestamp time.Time `json:"created_timestamp"`
 
-	Audio          bool   `json:"audio"`
-	AudioCodecType string `json:"audio_codec_type"`
-	AudioBitRate   *int32 `json:"audio_bit_rate"`
+	Audio          bool    `json:"audio"`
+	AudioCodecType *string `json:"audio_codec_type"`
+	AudioBitRate   *int32  `json:"audio_bit_rate"`
 
-	Video          bool   `json:"video"`
-	VideoCodecType string `json:"video_codec_type"`
-	VideoBitRate   int32  `json:"video_bit_rate"`
+	Video          bool    `json:"video"`
+	VideoCodecType *string `json:"video_codec_type"`
+	VideoBitRate   *int32  `json:"video_bit_rate"`
 
 	ChannelConnections         int32 `json:"channel_connections"`
 	ChannelSendrecvConnections int32 `json:"channel_sendrecv_connections"`
@@ -101,6 +103,8 @@ type ConnectionFailedData struct {
 	TotalSentBytes     int64 `json:"total_sent_bytes"`
 	TotalReceivedBytes int64 `json:"total_received_bytes"`
 }
+
+const ()
 
 type ArchiveStartedData struct {
 	RecordingID string `json:"recording_id"`

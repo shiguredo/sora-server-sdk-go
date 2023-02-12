@@ -5,6 +5,40 @@ import (
 	"time"
 )
 
+type SimulcastRid string
+
+const (
+	SimulcastRid0 SimulcastRid = "r0"
+	SimulcastRid1 SimulcastRid = "r1"
+	SimulcastRid2 SimulcastRid = "r2"
+)
+
+type Role string
+
+const (
+	RoleSendrecv Role = "sendrecv"
+	RoleSendonly Role = "sendonly"
+	RoleRecvonly Role = "recvonly"
+)
+
+type AudioCodecType string
+
+const (
+	AudioCodecTypeOpus      AudioCodecType = "OPUS"
+	AudioCodecTypeMultiopus AudioCodecType = "MULTIOPUS"
+	AudioCodecTypeLyra      AudioCodecType = "LYRA"
+)
+
+type VideoCodecType string
+
+const (
+	VideoCodecTypeVP8  VideoCodecType = "VP8"
+	VideoCodecTypeVP9  VideoCodecType = "VP9"
+	VideoCodecTypeAV1  VideoCodecType = "AV1"
+	VideoCodecTypeH264 VideoCodecType = "H264"
+	VideoCodecTypeH265 VideoCodecType = "H265"
+)
+
 type AuthWebhookRequest struct {
 	Timestamp time.Time `json:"timestamp"`
 
@@ -19,19 +53,18 @@ type AuthWebhookRequest struct {
 	SimulcastRid string `json:"simulcast_rid"`
 	Spotlight    bool   `json:"spotlight"`
 
-	Audio          bool   `json:"audio"`
-	AudioCodecType string `json:"audio_codec_type"`
-	// AudioBitRate は入ってこない場合があるので nil を許容する
-	AudioBitRate   *int32 `json:"audio_bit_rate"`
-	Video          bool   `json:"video"`
-	VideoCodecType string `json:"video_codec_type"`
-	VideoBitRate   int32  `json:"video_bit_rate"`
+	Audio          bool            `json:"audio"`
+	AudioCodecType *AudioCodecType `json:"audio_codec_type"`
+	AudioBitRate   *int32          `json:"audio_bit_rate"`
+	Video          bool            `json:"video"`
+	VideoCodecType *VideoCodecType `json:"video_codec_type"`
+	VideoBitRate   *int32          `json:"video_bit_rate"`
 
 	DataChannelSignaling      bool                `json:"data_channel_signaling"`
 	IgnoreDisconnectWebSocket bool                `json:"ignore_disconnect_websocket"`
 	DataChannels              []DataChannelParams `json:"data_channels"`
 
-	Role         string `json:"role"`
+	Role         Role   `json:"role"`
 	ChannelID    string `json:"channel_id"`
 	ClientID     string `json:"client_id"`
 	BundleID     string `json:"bundle_id"`
@@ -42,10 +75,10 @@ type AuthWebhookRequest struct {
 
 	E2EE bool `json:"e2ee"`
 
-	ChannelConnections         int64 `json:"channel_connections"`
-	ChannelSendrecvConnections int64 `json:"channel_sendrecv_connections"`
-	ChannelSendonlyConnections int64 `json:"channel_sendonly_connections"`
-	ChannelRecvonlyConnections int64 `json:"channel_recvonly_connections"`
+	ChannelConnections         int32 `json:"channel_connections"`
+	ChannelSendrecvConnections int32 `json:"channel_sendrecv_connections"`
+	ChannelSendonlyConnections int32 `json:"channel_sendonly_connections"`
+	ChannelRecvonlyConnections int32 `json:"channel_recvonly_connections"`
 
 	SoraClient SoraClient `json:"sora_client"`
 
@@ -72,15 +105,15 @@ type AuthWebhookSuccessResponse struct {
 	SimulcastEncodings []SimulcastEncoding `json:"simulcast_encodings,omitempty"`
 
 	Spotlight          bool                `json:"spotlight,omitempty"`
-	SpotlightNumber    uint                `json:"spotlight_number,omitempty"`
+	SpotlightNumber    int32               `json:"spotlight_number,omitempty"`
 	SpotlightEncodings []SimulcastEncoding `json:"spotlight_encodings,omitempty"`
 
-	Audio          bool   `json:"audio,omitempty"`
-	AudioCodecType string `json:"audio_codec_type,omitempty"`
-	AudioBitRate   int    `json:"audio_bit_rate,omitempty"`
-	Video          bool   `json:"video,omitempty"`
-	VideoCodecType string `json:"video_codec_type,omitempty"`
-	VideoBitRate   int    `json:"video_bit_rate,omitempty"`
+	Audio          bool            `json:"audio,omitempty"`
+	AudioCodecType *AudioCodecType `json:"audio_codec_type,omitempty"`
+	AudioBitRate   *int32          `json:"audio_bit_rate,omitempty"`
+	Video          bool            `json:"video,omitempty"`
+	VideoCodecType *VideoCodecType `json:"video_codec_type,omitempty"`
+	VideoBitRate   *int32          `json:"video_bit_rate,omitempty"`
 
 	DataChannelSignaling      bool                `json:"data_channel_signaling,omitempty"`
 	IgnoreDisconnectWebSocket bool                `json:"ignore_disconnect_websocket,omitempty"`
@@ -127,6 +160,6 @@ type DataChannelParams struct {
 	Direction         string `json:"direction,omitempty"`
 	Compress          bool   `json:"compress"`
 	Ordered           bool   `json:"ordered"`
-	MaxRetransmit     int    `json:"max_retransmit,omitempty"`
-	MaxPacketLifeTime int    `json:"max_packet_life_time,omitempty"`
+	MaxRetransmit     int32  `json:"max_retransmit,omitempty"`
+	MaxPacketLifeTime int32  `json:"max_packet_life_time,omitempty"`
 }
