@@ -1,11 +1,11 @@
-package webhook
+package sora
 
 import (
 	"encoding/json"
 	"time"
 )
 
-type SessionRequest struct {
+type SessionWebhookRequest struct {
 	Timestamp time.Time `json:"timestamp"`
 
 	Type     string `json:"type"`
@@ -14,8 +14,8 @@ type SessionRequest struct {
 	NodeName string `json:"node_name"`
 }
 
-type SessionCreatedRequest struct {
-	SessionRequest
+type SessionCreatedWebhookRequest struct {
+	SessionWebhookRequest
 
 	Multistream bool `json:"multistream"`
 
@@ -37,8 +37,8 @@ type SessionConnection struct {
 	Video interface{} `json:"video"`
 }
 
-type SessionDestroyedRequest struct {
-	SessionRequest
+type SessionDestroyedWebhookRequest struct {
+	SessionWebhookRequest
 	Multistream        bool                `json:"multistream"`
 	Spotlight          bool                `json:"spotlight"`
 	ChannelID          string              `json:"channel_id"`
@@ -53,6 +53,6 @@ type SessionDestroyedRequest struct {
 	SessionMetadata    json.RawMessage     `json:"session_metadata"`
 }
 
-type SessionVanishedRequest struct {
-	SessionRequest
+type SessionVanishedWebhookRequest struct {
+	SessionWebhookRequest
 }

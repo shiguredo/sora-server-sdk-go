@@ -15,15 +15,13 @@ Please read https://github.com/shiguredo/oss/blob/master/README.en.md before use
 
 ## 概要
 
-**現在お試し開発中です**
-
-Sora と連携するアプリケーションを開発する際にほんの少しだけ楽ができるかも知れないアプリ用 SDK です。
+Sora のウェブフックを処理するサーバーアプリケーションを開発するための SDK です。
 
 ### 対応内容
 
-- [ ] AuthWebhook
-- [ ] SessionWebhook
-- [ ] EventWebhook
+- [x] AuthWebhook
+- [x] SessionWebhook
+- [x] EventWebhook
 - [ ] API 
 
 ## 利用方法

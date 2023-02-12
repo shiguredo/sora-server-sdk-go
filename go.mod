@@ -1,3 +1,3 @@
-module github.com/shiguredo/sora-app-sdk-go
+module github.com/shiguredo/sora-server-sdk-go
 
-go 1.18
+go 1.20
