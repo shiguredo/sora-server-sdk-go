@@ -129,12 +129,15 @@ type AuthWebhookSuccessResponse struct {
 
 	TurnFqdn    string `json:"turn_fqdn,omitempty"`
 	TurnTlsFqdn string `json:"turn_tls_fqdn,omitempty"`
-	TurnTcpOnly bool   `json:"turn_tcp_only,omitempty"`
-	TurnTlsOnly bool   `json:"turn_tls_only,omitempty"`
+
+	TurnTcpOnly bool `json:"turn_tcp_only,omitempty"`
+	TurnTlsOnly bool `json:"turn_tls_only,omitempty"`
 
 	H264ProfileLevelID string `json:"h264_profile_level_id,omitempty"`
 
 	UserAgent bool `json:"user_agent,omitempty"`
+
+	AudioStreamingLanguageCode string `json:"audio_streaming_language_code"`
 
 	Metadata      json.RawMessage `json:"metadata,omitempty"`
 	EventMetadata json.RawMessage `json:"event_metadata,omitempty"`
