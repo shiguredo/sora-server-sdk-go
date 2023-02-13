@@ -29,7 +29,7 @@ Sora のウェブフックを処理するサーバーアプリケーションを
 v2022.2 は対応する Sora のバージョンを表しています。
 
 ```
-go get -u github.com/shiguredo/sora-app-sdk-go/v2022.2
+go get -u github.com/shiguredo/sora-server-sdk-go/v2022.2
 ```
 
 ## ライセンス
@@ -37,8 +37,8 @@ go get -u github.com/shiguredo/sora-app-sdk-go/v2022.2
 Apache License 2.0
 
 ```
-Copyright 2022-2022, Hiroshi Yoshida （Original Author)
-Copyright 2022-2022, Shiguredo Inc.
+Copyright 2022-2023, Hiroshi Yoshida （Original Author)
+Copyright 2022-2023, Shiguredo Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
