@@ -48,21 +48,16 @@ type AuthWebhookRequest struct {
 	Label    string `json:"label"`
 	NodeName string `json:"node_name"`
 
-	Multistream  bool   `json:"multistream"`
-	Simulcast    bool   `json:"simulcast"`
-	SimulcastRid string `json:"simulcast_rid"`
-	Spotlight    bool   `json:"spotlight"`
+	Audio          bool           `json:"audio"`
+	AudioCodecType AudioCodecType `json:"audio_codec_type"`
+	AudioBitRate   *int32         `json:"audio_bit_rate"`
+	Video          bool           `json:"video"`
+	VideoCodecType VideoCodecType `json:"video_codec_type"`
+	VideoBitRate   int32          `json:"video_bit_rate"`
 
-	Audio          bool            `json:"audio"`
-	AudioCodecType *AudioCodecType `json:"audio_codec_type"`
-	AudioBitRate   *int32          `json:"audio_bit_rate"`
-	Video          bool            `json:"video"`
-	VideoCodecType *VideoCodecType `json:"video_codec_type"`
-	VideoBitRate   *int32          `json:"video_bit_rate"`
-
-	DataChannelSignaling      bool                `json:"data_channel_signaling"`
-	IgnoreDisconnectWebSocket bool                `json:"ignore_disconnect_websocket"`
-	DataChannels              []DataChannelParams `json:"data_channels"`
+	DataChannelSignaling      bool                 `json:"data_channel_signaling"`
+	IgnoreDisconnectWebSocket bool                 `json:"ignore_disconnect_websocket"`
+	DataChannels              *[]DataChannelParams `json:"data_channels"`
 
 	Role         Role   `json:"role"`
 	ChannelID    string `json:"channel_id"`
@@ -70,8 +65,13 @@ type AuthWebhookRequest struct {
 	BundleID     string `json:"bundle_id"`
 	ConnectionID string `json:"connection_id"`
 
-	Metadata     json.RawMessage `json:"metadata"`
-	AuthMetadata json.RawMessage `json:"auth_metadata"`
+	Multistream  bool   `json:"multistream"`
+	Simulcast    bool   `json:"simulcast"`
+	SimulcastRid string `json:"simulcast_rid"`
+	Spotlight    bool   `json:"spotlight"`
+
+	Metadata     *json.RawMessage `json:"metadata"`
+	AuthMetadata *json.RawMessage `json:"auth_metadata"`
 
 	E2EE bool `json:"e2ee"`
 
@@ -82,7 +82,7 @@ type AuthWebhookRequest struct {
 
 	SoraClient SoraClient `json:"sora_client"`
 
-	AudioStreamingLanguageCode string `json:"audio_streaming_language_code"`
+	AudioStreamingLanguageCode *string `json:"audio_streaming_language_code"`
 }
 
 type SoraClient struct {
@@ -108,12 +108,12 @@ type AuthWebhookSuccessResponse struct {
 	SpotlightNumber    int32               `json:"spotlight_number,omitempty"`
 	SpotlightEncodings []SimulcastEncoding `json:"spotlight_encodings,omitempty"`
 
-	Audio          bool            `json:"audio,omitempty"`
-	AudioCodecType *AudioCodecType `json:"audio_codec_type,omitempty"`
-	AudioBitRate   *int32          `json:"audio_bit_rate,omitempty"`
-	Video          bool            `json:"video,omitempty"`
-	VideoCodecType *VideoCodecType `json:"video_codec_type,omitempty"`
-	VideoBitRate   *int32          `json:"video_bit_rate,omitempty"`
+	Audio          bool           `json:"audio,omitempty"`
+	AudioCodecType AudioCodecType `json:"audio_codec_type,omitempty"`
+	AudioBitRate   int32          `json:"audio_bit_rate,omitempty"`
+	Video          bool           `json:"video,omitempty"`
+	VideoCodecType VideoCodecType `json:"video_codec_type,omitempty"`
+	VideoBitRate   int32          `json:"video_bit_rate,omitempty"`
 
 	DataChannelSignaling      bool                `json:"data_channel_signaling,omitempty"`
 	IgnoreDisconnectWebSocket bool                `json:"ignore_disconnect_websocket,omitempty"`
