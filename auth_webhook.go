@@ -59,11 +59,11 @@ type AuthWebhookRequest struct {
 	IgnoreDisconnectWebSocket bool                 `json:"ignore_disconnect_websocket"`
 	DataChannels              *[]DataChannelParams `json:"data_channels"`
 
-	Role         Role   `json:"role"`
-	ChannelID    string `json:"channel_id"`
-	ClientID     string `json:"client_id"`
-	BundleID     string `json:"bundle_id"`
-	ConnectionID string `json:"connection_id"`
+	Role         Role    `json:"role"`
+	ChannelID    string  `json:"channel_id"`
+	ClientID     *string `json:"client_id"`
+	BundleID     *string `json:"bundle_id"`
+	ConnectionID string  `json:"connection_id"`
 
 	Multistream  bool   `json:"multistream"`
 	Simulcast    bool   `json:"simulcast"`
