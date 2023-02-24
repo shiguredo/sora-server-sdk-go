@@ -98,8 +98,6 @@ type AuthWebhookSuccessResponse struct {
 	Allowed bool   `json:"allowed"`
 	Reason  string `json:"reason,omitempty"`
 
-	Multistream bool `json:"multistream,omitempty"`
-
 	Simulcast          bool                `json:"simulcast,omitempty"`
 	SimulcastRid       string              `json:"simulcast_rid,omitempty"`
 	SimulcastEncodings []SimulcastEncoding `json:"simulcast_encodings,omitempty"`
