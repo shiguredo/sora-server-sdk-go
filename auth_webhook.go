@@ -39,6 +39,51 @@ const (
 	VideoCodecTypeH265 VideoCodecType = "H265"
 )
 
+type VideoVP9Params struct {
+	ProfileID int8 `json:"profile_id"`
+}
+
+type VideoAV1Params struct {
+	Profile int8 `json:"profile"`
+}
+
+type VideoH264Params struct {
+	ProfileLevelID string `json:"profile_level_id"`
+}
+
+type ForwardingFilterRuleField string
+
+const (
+	ForwardingFilterRuleFieldConnectionID ForwardingFilterRuleField = "connection_id"
+	ForwardingFilterRuleFieldClientID     ForwardingFilterRuleField = "client_id"
+	ForwardingFilterRuleFieldKind         ForwardingFilterRuleField = "kind"
+)
+
+type ForwardingFilterRuleOperator string
+
+const (
+	ForwardingFilterRuleOperatorIsIn    ForwardingFilterRuleOperator = "is_in"
+	ForwardingFilterRuleOperatorIsNotIn ForwardingFilterRuleOperator = "is_not_in"
+)
+
+type ForwardingFilterRule struct {
+	Field    ForwardingFilterRuleField    `json:"field"`
+	Operator ForwardingFilterRuleOperator `json:"operator"`
+	Values   []string                     `json:"values"`
+}
+
+type ForwardingFilterAction string
+
+const (
+	ForwardingFilterActionBlock ForwardingFilterAction = "block"
+	ForwardingFilterActionAllow ForwardingFilterAction = "allow"
+)
+
+type ForwardingFilter struct {
+	Action ForwardingFilterAction   `json:"action"`
+	Rules  [][]ForwardingFilterRule `json:"rules"`
+}
+
 type AuthWebhookRequest struct {
 	Timestamp time.Time `json:"timestamp"`
 
@@ -47,17 +92,6 @@ type AuthWebhookRequest struct {
 	Version  string `json:"version"`
 	Label    string `json:"label"`
 	NodeName string `json:"node_name"`
-
-	Audio          bool           `json:"audio"`
-	AudioCodecType AudioCodecType `json:"audio_codec_type"`
-	AudioBitRate   *int32         `json:"audio_bit_rate"`
-	Video          bool           `json:"video"`
-	VideoCodecType VideoCodecType `json:"video_codec_type"`
-	VideoBitRate   int32          `json:"video_bit_rate"`
-
-	DataChannelSignaling      bool                 `json:"data_channel_signaling"`
-	IgnoreDisconnectWebSocket bool                 `json:"ignore_disconnect_websocket"`
-	DataChannels              *[]DataChannelParams `json:"data_channels"`
 
 	Role         Role    `json:"role"`
 	ChannelID    string  `json:"channel_id"`
@@ -70,19 +104,36 @@ type AuthWebhookRequest struct {
 	SimulcastRid string `json:"simulcast_rid"`
 	Spotlight    bool   `json:"spotlight"`
 
-	Metadata     *json.RawMessage `json:"metadata"`
-	AuthMetadata *json.RawMessage `json:"auth_metadata"`
+	Audio          bool            `json:"audio"`
+	AudioCodecType *AudioCodecType `json:"audio_codec_type"`
+	AudioBitRate   *int32          `json:"audio_bit_rate"`
 
-	E2EE bool `json:"e2ee"`
+	Video           bool             `json:"video"`
+	VideoCodecType  *VideoCodecType  `json:"video_codec_type"`
+	VideoBitRate    *int32           `json:"video_bit_rate"`
+	VideoVP9Params  *VideoVP9Params  `json:"video_vp9_params"`
+	VideoAV1Params  *VideoAV1Params  `json:"video_av1_params"`
+	VideoH264Params *VideoH264Params `json:"video_h264_params"`
+
+	DataChannelSignaling      bool                 `json:"data_channel_signaling"`
+	IgnoreDisconnectWebSocket bool                 `json:"ignore_disconnect_websocket"`
+	DataChannels              *[]DataChannelParams `json:"data_channels"`
 
 	ChannelConnections         int32 `json:"channel_connections"`
 	ChannelSendrecvConnections int32 `json:"channel_sendrecv_connections"`
 	ChannelSendonlyConnections int32 `json:"channel_sendonly_connections"`
 	ChannelRecvonlyConnections int32 `json:"channel_recvonly_connections"`
 
+	E2EE bool `json:"e2ee"`
+
+	WHIP *bool `json:"whip"`
+
 	SoraClient SoraClient `json:"sora_client"`
 
-	AudioStreamingLanguageCode *string `json:"audio_streaming_language_code"`
+	Metadata     *json.RawMessage `json:"metadata"`
+	AuthMetadata *json.RawMessage `json:"auth_metadata"`
+
+	ForwardingFilter *ForwardingFilter `json:"forwarding_filter"`
 }
 
 type SoraClient struct {
