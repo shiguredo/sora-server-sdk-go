@@ -24,7 +24,8 @@ Sora のウェブフックを処理するサーバーアプリケーションを
 - [x] AuthWebhook
 - [x] SessionWebhook
 - [x] EventWebhook
-- [ ] API 
+- [ ] API
+- [ ] CLI
 
 ## 利用方法
 
