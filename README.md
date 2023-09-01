@@ -1,4 +1,4 @@
-# Sora App SDK for Go
+# Sora Server SDK for Go
 
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/shiguredo/sora-app-sdk-go.svg)](https://github.com/shiguredo/sora-go)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -14,6 +14,8 @@ Please read https://github.com/shiguredo/oss/blob/master/README.en.md before use
 利用前に https://github.com/shiguredo/oss をお読みください。
 
 ## 概要
+
+**これは現在開発中です**
 
 Sora のウェブフックを処理するサーバーアプリケーションを開発するための SDK です。
 
