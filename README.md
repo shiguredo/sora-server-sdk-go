@@ -17,21 +17,26 @@ Please read https://github.com/shiguredo/oss/blob/master/README.en.md before use
 
 **これは現在開発中です**
 
-Sora のウェブフックを処理するサーバーアプリケーションを開発するための SDK です。
+WebRTC SFU Sora や Sora Cloud の API やウェブフックを利用するサーバーアプリケーションを開発するための SDK です。
 
-### 対応内容
+## 対応内容
 
+- [ ] API
 - [x] AuthWebhook
 - [x] SessionWebhook
 - [x] EventWebhook
+
+### Sora Cloud
+
 - [ ] API
+- [ ] Webhook
 
 ## 利用方法
 
-v2022.2 は対応する Sora のバージョンを表しています。
+v2023.2 は対応する Sora のバージョンを表しています。
 
 ```
-go get -u github.com/shiguredo/sora-server-sdk-go/v2022.2
+go get -u github.com/shiguredo/sora-server-sdk-go/v2023.2
 ```
 
 ## ライセンス
