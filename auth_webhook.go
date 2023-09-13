@@ -5,6 +5,14 @@ import (
 	"time"
 )
 
+type Role string
+
+const (
+	RoleSendrecv Role = "sendrecv"
+	RoleSendonly Role = "sendonly"
+	RoleRecvonly Role = "recvonly"
+)
+
 type SimulcastRid string
 
 const (
@@ -13,12 +21,13 @@ const (
 	SimulcastRid2 SimulcastRid = "r2"
 )
 
-type Role string
+type SpotlightRid string
 
 const (
-	RoleSendrecv Role = "sendrecv"
-	RoleSendonly Role = "sendonly"
-	RoleRecvonly Role = "recvonly"
+	SpotlightRidNone SpotlightRid = "none"
+	SpotlightRid0    SpotlightRid = "r0"
+	SpotlightRid1    SpotlightRid = "r0"
+	SpotlightRid2    SpotlightRid = "r0"
 )
 
 type AudioCodecType string
@@ -137,29 +146,34 @@ type AuthWebhookRequest struct {
 }
 
 type SoraClient struct {
-	Type        string `json:"type"`
-	Raw         string `json:"raw"`
-	Version     string `json:"version"`
-	CommitShort string `json:"commit_short"`
-	Environment string `json:"environment"`
-	Libwebrtc   string `json:"libwebrtc"`
+	Type        *string `json:"type"`
+	Raw         *string `json:"raw"`
+	Version     *string `json:"version"`
+	CommitShort *string `json:"commit_short"`
+	Environment *string `json:"environment"`
+	Libwebrtc   *string `json:"libwebrtc"`
 }
 
 type AuthWebhookSuccessResponse struct {
-	Allowed bool   `json:"allowed"`
-	Reason  string `json:"reason,omitempty"`
+	Allowed bool `json:"allowed"`
+
+	ClientID string `json:"client_id,omitempty"`
+	BundleID string `json:"bundle_id,omitempty"`
 
 	Simulcast          bool                `json:"simulcast,omitempty"`
 	SimulcastRid       string              `json:"simulcast_rid,omitempty"`
 	SimulcastEncodings []SimulcastEncoding `json:"simulcast_encodings,omitempty"`
 
-	Spotlight          bool                `json:"spotlight,omitempty"`
-	SpotlightNumber    int32               `json:"spotlight_number,omitempty"`
-	SpotlightEncodings []SimulcastEncoding `json:"spotlight_encodings,omitempty"`
+	Spotlight           bool                `json:"spotlight,omitempty"`
+	SpotlightNumber     int32               `json:"spotlight_number,omitempty"`
+	SpotlightFocusRid   string              `json:"spotlight_focus_rid,omitempty"`
+	SpotlightUnfocusRid string              `json:"spotlight_unfocus_rid,omitempty"`
+	SpotlightEncodings  []SimulcastEncoding `json:"spotlight_encodings,omitempty"`
 
 	Audio          bool           `json:"audio,omitempty"`
 	AudioCodecType AudioCodecType `json:"audio_codec_type,omitempty"`
 	AudioBitRate   int32          `json:"audio_bit_rate,omitempty"`
+
 	Video          bool           `json:"video,omitempty"`
 	VideoCodecType VideoCodecType `json:"video_codec_type,omitempty"`
 	VideoBitRate   int32          `json:"video_bit_rate,omitempty"`
@@ -167,9 +181,6 @@ type AuthWebhookSuccessResponse struct {
 	DataChannelSignaling      bool                `json:"data_channel_signaling,omitempty"`
 	IgnoreDisconnectWebSocket bool                `json:"ignore_disconnect_websocket,omitempty"`
 	DataChannels              []DataChannelParams `json:"data_channels,omitempty"`
-
-	ClientID string `json:"client_id,omitempty"`
-	BundleID string `json:"bundle_id,omitempty"`
 
 	SignalingNotify bool `json:"signaling_notify,omitempty"`
 
@@ -202,7 +213,7 @@ type SimulcastEncoding struct {
 	ScalabilityMode       string  `json:"scalabilityMode,omitempty"`
 }
 
-type AuthWebhookFailureResponse struct {
+type AuthWebhookRejectResponse struct {
 	Allowed bool   `json:"allowed"`
 	Reason  string `json:"reason"`
 }
