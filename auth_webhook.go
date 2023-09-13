@@ -48,6 +48,22 @@ const (
 	VideoCodecTypeH265 VideoCodecType = "H265"
 )
 
+type AudioOpusParams struct {
+	Channels        int8  `json:"channels"`
+	Maxplaybackrate int32 `json:"maxplaybackrate"`
+	Minptime        int32 `json:"minptime"`
+	Ptime           int32 `json:"ptime"`
+	Stereo          bool  `json:"stereo"`
+	SpropStereo     bool  `json:"sprop_stereo"`
+	Useinbandfec    bool  `json:"useinbandfec"`
+	Usedtx          bool  `json:"usedtx"`
+}
+
+type AudioLyraParams struct {
+	Version string `json:"version"`
+	Bitrate int32  `json:"bitrate"`
+}
+
 type VideoVP9Params struct {
 	ProfileID int8 `json:"profile_id"`
 }
@@ -93,6 +109,25 @@ type ForwardingFilter struct {
 	Rules  [][]ForwardingFilterRule `json:"rules"`
 }
 
+type SimulcastEncoding struct {
+	Rid                   string  `json:"rid"`
+	Active                bool    `json:"active,omitempty"`
+	ScaleResolutionDownBy float64 `json:"scaleResolutionDownBy,omitempty"`
+	MaxBitrate            float64 `json:"maxBitrate,omitempty"`
+	MaxFramerate          float64 `json:"maxFramerate,omitempty"`
+	AdaptivePtime         bool    `json:"adaptivePtime,omitempty"`
+	ScalabilityMode       string  `json:"scalabilityMode,omitempty"`
+}
+
+type DataChannelParams struct {
+	Label             string `json:"label,omitempty"`
+	Direction         string `json:"direction,omitempty"`
+	Compress          bool   `json:"compress"`
+	Ordered           bool   `json:"ordered"`
+	MaxRetransmit     int32  `json:"max_retransmit,omitempty"`
+	MaxPacketLifeTime int32  `json:"max_packet_life_time,omitempty"`
+}
+
 type AuthWebhookRequest struct {
 	Timestamp time.Time `json:"timestamp"`
 
@@ -108,10 +143,12 @@ type AuthWebhookRequest struct {
 	BundleID     *string `json:"bundle_id"`
 	ConnectionID string  `json:"connection_id"`
 
-	Multistream  bool   `json:"multistream"`
-	Simulcast    bool   `json:"simulcast"`
-	SimulcastRid string `json:"simulcast_rid"`
-	Spotlight    bool   `json:"spotlight"`
+	Multistream         bool          `json:"multistream"`
+	Simulcast           bool          `json:"simulcast"`
+	SimulcastRid        *string       `json:"simulcast_rid"`
+	Spotlight           bool          `json:"spotlight"`
+	SpotlightFocusRid   *SpotlightRid `json:"spotlight_focus_rid"`
+	SpotlightUnfocusRid *SpotlightRid `json:"spotlight_unfocus_rid"`
 
 	Audio          bool            `json:"audio"`
 	AudioCodecType *AudioCodecType `json:"audio_codec_type"`
@@ -128,21 +165,21 @@ type AuthWebhookRequest struct {
 	IgnoreDisconnectWebSocket bool                 `json:"ignore_disconnect_websocket"`
 	DataChannels              *[]DataChannelParams `json:"data_channels"`
 
+	ForwardingFilter *ForwardingFilter `json:"forwarding_filter"`
+
+	AuthMetadata *json.RawMessage `json:"auth_metadata"`
+	Metadata     *json.RawMessage `json:"metadata"`
+
+	WHIP *bool `json:"whip"`
+
+	SoraClient SoraClient `json:"sora_client"`
+
 	ChannelConnections         int32 `json:"channel_connections"`
 	ChannelSendrecvConnections int32 `json:"channel_sendrecv_connections"`
 	ChannelSendonlyConnections int32 `json:"channel_sendonly_connections"`
 	ChannelRecvonlyConnections int32 `json:"channel_recvonly_connections"`
 
 	E2EE bool `json:"e2ee"`
-
-	WHIP *bool `json:"whip"`
-
-	SoraClient SoraClient `json:"sora_client"`
-
-	Metadata     *json.RawMessage `json:"metadata"`
-	AuthMetadata *json.RawMessage `json:"auth_metadata"`
-
-	ForwardingFilter *ForwardingFilter `json:"forwarding_filter"`
 }
 
 type SoraClient struct {
@@ -170,19 +207,26 @@ type AuthWebhookSuccessResponse struct {
 	SpotlightUnfocusRid string              `json:"spotlight_unfocus_rid,omitempty"`
 	SpotlightEncodings  []SimulcastEncoding `json:"spotlight_encodings,omitempty"`
 
-	Audio          bool           `json:"audio,omitempty"`
-	AudioCodecType AudioCodecType `json:"audio_codec_type,omitempty"`
-	AudioBitRate   int32          `json:"audio_bit_rate,omitempty"`
+	Audio           bool            `json:"audio,omitempty"`
+	AudioCodecType  AudioCodecType  `json:"audio_codec_type,omitempty"`
+	AudioBitRate    int32           `json:"audio_bit_rate,omitempty"`
+	AudioLyraParams AudioLyraParams `json:"audio_lyra_params,omitempty"`
+	AudioOpusParams AudioOpusParams `json:"audio_opus_params,omitempty"`
 
-	Video          bool           `json:"video,omitempty"`
-	VideoCodecType VideoCodecType `json:"video_codec_type,omitempty"`
-	VideoBitRate   int32          `json:"video_bit_rate,omitempty"`
+	Video           bool            `json:"video,omitempty"`
+	VideoCodecType  VideoCodecType  `json:"video_codec_type,omitempty"`
+	VideoBitRate    int32           `json:"video_bit_rate,omitempty"`
+	VideoVP9Params  VideoVP9Params  `json:"video_vp9_params,omitempty"`
+	VideoAV1Params  VideoAV1Params  `json:"video_av1_params,omitempty"`
+	VideoH264Params VideoH264Params `json:"video_h264_params,omitempty"`
 
 	DataChannelSignaling      bool                `json:"data_channel_signaling,omitempty"`
 	IgnoreDisconnectWebSocket bool                `json:"ignore_disconnect_websocket,omitempty"`
 	DataChannels              []DataChannelParams `json:"data_channels,omitempty"`
 
-	SignalingNotify bool `json:"signaling_notify,omitempty"`
+	SignalingNotify            bool            `json:"signaling_notify,omitempty"`
+	SignalingNotifyMetadata    json.RawMessage `json:"signaling_notify_metadata,omitempty"`
+	SignalingNotifyMetadataExt json.RawMessage `json:"signaling_notify_metadata_ext,omitempty"`
 
 	IPv4Address string `json:"ipv4_address,omitempty"`
 	IPv6Address string `json:"ipv6_address,omitempty"`
@@ -193,6 +237,7 @@ type AuthWebhookSuccessResponse struct {
 	TurnTcpOnly bool `json:"turn_tcp_only,omitempty"`
 	TurnTlsOnly bool `json:"turn_tls_only,omitempty"`
 
+	// Sora 2024.1.0 にて廃止予定です
 	H264ProfileLevelID string `json:"h264_profile_level_id,omitempty"`
 
 	UserAgent bool `json:"user_agent,omitempty"`
@@ -203,26 +248,7 @@ type AuthWebhookSuccessResponse struct {
 	EventMetadata json.RawMessage `json:"event_metadata,omitempty"`
 }
 
-type SimulcastEncoding struct {
-	Rid                   string  `json:"rid"`
-	Active                bool    `json:"active,omitempty"`
-	ScaleResolutionDownBy float64 `json:"scaleResolutionDownBy,omitempty"`
-	MaxBitrate            float64 `json:"maxBitrate,omitempty"`
-	MaxFramerate          float64 `json:"maxFramerate,omitempty"`
-	AdaptivePtime         bool    `json:"adaptivePtime,omitempty"`
-	ScalabilityMode       string  `json:"scalabilityMode,omitempty"`
-}
-
 type AuthWebhookRejectResponse struct {
 	Allowed bool   `json:"allowed"`
 	Reason  string `json:"reason"`
-}
-
-type DataChannelParams struct {
-	Label             string `json:"label,omitempty"`
-	Direction         string `json:"direction,omitempty"`
-	Compress          bool   `json:"compress"`
-	Ordered           bool   `json:"ordered"`
-	MaxRetransmit     int32  `json:"max_retransmit,omitempty"`
-	MaxPacketLifeTime int32  `json:"max_packet_life_time,omitempty"`
 }

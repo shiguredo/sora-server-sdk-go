@@ -25,6 +25,11 @@ const (
 	EventWebhookTypeSpotlightUnfocused EventWebhookType = "spotlight.unfocused"
 )
 
+type IceConnectionState struct {
+	TotalCheckingDurationMs     int64 `json:"totalCheckingDurationMs"`
+	TotalDisconnectedDurationMs int64 `json:"totalDisconnectedDurationMs"`
+}
+
 type EventWebhookRequest struct {
 	Timestamp time.Time `json:"timestamp"`
 
@@ -75,6 +80,8 @@ type ConnectionCreatedData struct {
 	TotalReceivedBytes int64 `json:"total_received_bytes"`
 
 	TurnTransportType string `json:"turn_transport_type"`
+
+	IceConnectionState IceConnectionState `json:"iceConnectionState"`
 }
 
 type ConnectionUpdatedData struct {
