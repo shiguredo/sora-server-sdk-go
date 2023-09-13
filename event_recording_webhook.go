@@ -5,6 +5,13 @@ import (
 	"time"
 )
 
+// 2024.2.0 で廃止されます
+type EventRecordingStartedWebhookRequest struct {
+}
+
+type EventRecordingStartedWebhookResponse struct {
+}
+
 type ArchiveStartedData struct {
 	RecordingID string `json:"recording_id"`
 
