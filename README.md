@@ -1,6 +1,6 @@
 # Sora Server SDK for Go
 
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/shiguredo/sora-app-sdk-go.svg)](https://github.com/shiguredo/sora-go)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/shiguredo/sora-server-sdk-go.svg)](https://github.com/shiguredo/sora-server-sdk-go)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## About Shiguredo's open source software
