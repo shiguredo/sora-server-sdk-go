@@ -30,6 +30,24 @@ type SessionCreatedWebhookRequest struct {
 	CreatedTimestamp time.Time `json:"created_timestamp"`
 }
 
+type SessionCreatedWebhookResponse struct {
+	SessionMetadata json.RawMessage `json:"session_metadata,omitempty"`
+
+	// 転送フィルター機能
+	ForwardingFilter ForwardingFilter `json:"forwarding_filter,omitempty"`
+
+	// 音声ストリーミング機能
+	AudioStreaming     bool `json:"audio_streaming,omitempty"`
+	AudioStreamingAuto bool `json:"audio_streaming_auto,omitempty"`
+
+	// セッション単位録画機能
+	Recording              bool            `json:"recording,omitempty"`
+	RecordingExpireTime    int64           `json:"recording_expire_time,omitempty"`
+	RecordingSplitDuration int64           `json:"recording_split_duration,omitempty"`
+	RecordingSplitOnly     bool            `json:"recording_split_only,omitempty"`
+	RecordingMetadata      json.RawMessage `json:"recording_metadata,omitempty"`
+}
+
 type SessionConnection struct {
 	Role         string `json:"role"`
 	ClientID     string `json:"client_id"`

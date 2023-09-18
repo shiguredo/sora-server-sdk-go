@@ -1,6 +1,6 @@
-# Sora App SDK for Go
+# Sora Server SDK for Go
 
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/shiguredo/sora-app-sdk-go.svg)](https://github.com/shiguredo/sora-go)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/shiguredo/sora-server-sdk-go.svg)](https://github.com/shiguredo/sora-server-sdk-go)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## About Shiguredo's open source software
@@ -15,21 +15,28 @@ Please read https://github.com/shiguredo/oss/blob/master/README.en.md before use
 
 ## 概要
 
-Sora のウェブフックを処理するサーバーアプリケーションを開発するための SDK です。
+**これは現在開発中です**
 
-### 対応内容
+WebRTC SFU Sora や Sora Cloud の API やウェブフックを利用するサーバーアプリケーションを開発するための SDK です。
 
+## 対応内容
+
+- [ ] API
 - [x] AuthWebhook
 - [x] SessionWebhook
 - [x] EventWebhook
-- [ ] API 
+
+### Sora Cloud
+
+- [ ] API
+- [ ] Webhook
 
 ## 利用方法
 
-v2022.2 は対応する Sora のバージョンを表しています。
+v2023.2 は対応する Sora のバージョンを表しています。
 
 ```
-go get -u github.com/shiguredo/sora-server-sdk-go/v2022.2
+go get -u github.com/shiguredo/sora-server-sdk-go/v2023.2
 ```
 
 ## ライセンス
