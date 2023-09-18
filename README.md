@@ -17,7 +17,7 @@ Please read https://github.com/shiguredo/oss/blob/master/README.en.md before use
 
 **これは現在開発中です**
 
-WebRTC SFU Sora や Sora Cloud の API やウェブフックを利用するサーバーアプリケーションを開発するための SDK です。
+WebRTC SFU Sora や Sora Cloud の API やウェブフックを利用するサーバーアプリケーションを開発するための Go 向けの SDK です。
 
 ## 対応内容
 
